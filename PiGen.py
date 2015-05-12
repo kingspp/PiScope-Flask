@@ -35,22 +35,25 @@ def my_form_post():
     value=request.form['usr'] 
     hz=request.form['val']
     if hz=='hz':
-        hz='Hertz'    
+        hz='Hertz'
+        mf=1;    
     elif  hz=='khz':
-        hz='Kilo Hertz'    
+        hz='Kilo Hertz'
+        mf=1000    
     elif hz=='mhz':
         hz='Mega Hertz'
+        mf=1000000
     
     message = Markup("<h3>Value: "+value+" "+hz+"</h3>")    
-    value = tuningWord(float(value))   
+    value = tuningWord(float(value),mf)   
     value = str(value)
     print value  
     message+= Markup("<h3>Tuning Word: "+value+"</h3>")
     flash(message) 
     return redirect("http://"+ip+"#pigen")
 
-def tuningWord(value):
-    tw= value* (math.pow(2, 32) / defClock)
+def tuningWord(value,mf):
+    tw= (value*mf)* (math.pow(2, 32) / defClock)
     return tw
 
 if __name__ == "__main__":
