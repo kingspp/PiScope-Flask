@@ -8,7 +8,7 @@ import struct
 import RPi.GPIO as GPIO
 
 
-ip = '192.168.0.99'
+
 
 # setup GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -99,8 +99,9 @@ def my_form_post():
     elif request.form['submit'] == "Reset":
         stop();
         message = Markup("<h3>AD9850 successfully reset!</h3>") 
-        flash(message) 
-    return redirect("http://" + ip + "#pigen")
+        flash(message)
+    ip = request.url_root
+    return redirect(ip+"#pigen")
 
 def tuningWord(value, mf):
     freq = int((value * mf) * 4294967296 / 125000000) 
