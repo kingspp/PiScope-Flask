@@ -75,7 +75,7 @@ def main():
 @app.route("/my_form_post", methods=['POST'])
 
 def my_form_post():
-    if request.form['submit'] == "Generate!":
+    if (request.form['submit'] == "Generate!" and request.form['usr'] != ""):
         value = request.form['usr'] 
         hz = request.form['val']
         if hz == 'hz':
@@ -93,6 +93,9 @@ def my_form_post():
         value = str(value)     
         message += Markup("<h3>Tuning Word: " + value + "</h3>")
         flash(message) 
+    elif ( request.form['submit'] == "Generate!" and request.form['usr'] == "" ) :
+        message = Markup("<h3>Please enter a valid Frequency Value</h3>")
+        flash(message)
     elif request.form['submit'] == "Reset":
         stop();
         message = Markup("<h3>AD9850 successfully reset!</h3>") 
