@@ -1,6 +1,11 @@
 from flask import Flask
 from flask.ext.httpauth import HTTPBasicAuth
-from flask import Flask, flash, render_template, request
+from flask import Flask, flash, render_template, request, redirect
+from flask import Markup
+
+
+ip = '192.168.0.4'
+
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
@@ -21,9 +26,15 @@ def get_pw(username):
 @auth.login_required
 def main():
    user =  auth.username()
-   #flash('Welcome %s', % user)
-   
+   #flash('Welcome %s', % user)   
    return render_template('main.html')
+@app.route("/my_form_post", methods=['POST'])
+def my_form_post():
+    name=request.form['usr'] 
+   
+    return redirect("http://"+ip+"#pigen")
+
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
