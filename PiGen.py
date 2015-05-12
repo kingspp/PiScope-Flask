@@ -4,6 +4,7 @@ from flask import Flask, flash, render_template, request, redirect
 from flask import Markup
 import math
 from lib2to3.fixer_util import String
+import struct
 
 
 ip = '192.168.0.4'
@@ -46,15 +47,24 @@ def my_form_post():
     
     message = Markup("<h3>Value: "+value+" "+hz+"</h3>")    
     value = tuningWord(float(value),mf)   
-    value = str(value)
-    print value  
+    value = str(value)     
     message+= Markup("<h3>Tuning Word: "+value+"</h3>")
     flash(message) 
     return redirect("http://"+ip+"#pigen")
 
 def tuningWord(value,mf):
     tw= (value*mf)* (math.pow(2, 32) / defClock)
+    tw=int(hex(floatToBits(tw)),16)
+    print tw
+    print tw>>8
+    print tw>>16
+    print tw>>24
+    
     return tw
+
+def floatToBits(f):
+    s = struct.pack('>f', f)
+    return struct.unpack('>l', s)[0]
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
