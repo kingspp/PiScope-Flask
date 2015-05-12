@@ -53,18 +53,10 @@ def my_form_post():
     return redirect("http://"+ip+"#pigen")
 
 def tuningWord(value,mf):
-    tw= (value*mf)* (math.pow(2, 32) / defClock)
-    tw=int(hex(floatToBits(tw)),16)
-    print tw
-    print tw>>8
-    print tw>>16
-    print tw>>24
-    
+    tw= int(value*4294967296/125000000)    
     return tw
 
-def floatToBits(f):
-    s = struct.pack('>f', f)
-    return struct.unpack('>l', s)[0]
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
