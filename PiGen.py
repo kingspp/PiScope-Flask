@@ -75,29 +75,33 @@ def main():
 @app.route("/my_form_post", methods=['POST'])
 
 def my_form_post():
-    value = request.form['usr'] 
-    hz = request.form['val']
-    if hz == 'hz':
-        hz = 'Hertz'
-        mf = 1;    
-    elif  hz == 'khz':
-        hz = 'Kilo Hertz'
-        mf = 1000    
-    elif hz == 'mhz':
-        hz = 'Mega Hertz'
-        mf = 1000000
-    start();
-    
-    message = Markup("<h3>Value: " + value + " " + hz + "</h3>")    
-    value = tuningWord(float(value), mf)   
-    value = str(value)     
-    message += Markup("<h3>Tuning Word: " + value + "</h3>")
-    flash(message) 
+    if request.form['submit'] == "Generate!":
+        value = request.form['usr'] 
+        hz = request.form['val']
+        if hz == 'hz':
+            hz = 'Hertz'
+            mf = 1;    
+        elif  hz == 'khz':
+            hz = 'Kilo Hertz'
+            mf = 1000    
+        elif hz == 'mhz':
+            hz = 'Mega Hertz'
+            mf = 1000000
+        start();    
+        message = Markup("<h3>Value: " + value + " " + hz + "</h3>")    
+        value = tuningWord(float(value), mf)   
+        value = str(value)     
+        message += Markup("<h3>Tuning Word: " + value + "</h3>")
+        flash(message) 
+    elif request.form['submit'] == "Reset":
+        stop();
+        message = Markup("<h3>AD9850 successfully reset!</h3>") 
+        flash(message) 
     return redirect("http://" + ip + "#pigen")
 
 def tuningWord(value, mf):
-    freq = int((value*mf) * 4294967296 / 125000000) 
-    tw=freq
+    freq = int((value * mf) * 4294967296 / 125000000) 
+    tw = freq
     GPIO.output(Pon, True)
     for b in range (0, 4):
         tfr_byte(freq & 0xFF)
@@ -113,7 +117,7 @@ def start():
     pulseHigh(RESET)
     pulseHigh(W_CLK)
     pulseHigh(FQ_UD)
-    tuningWord(frequency,1)
+    tuningWord(frequency, 1)
     
 # stop the DDS module
 def stop():
