@@ -13,6 +13,8 @@
         $('html, body').stop().animate({
             scrollTop: ($($anchor.attr('href')).offset().top - 50)
         }, 1250, 'easeInOutExpo');
+		
+		 
         event.preventDefault();
     });
 
@@ -21,6 +23,8 @@
         target: '.navbar-fixed-top',
         offset: 51
     })
+	
+	
 
     // Closes the Responsive Menu on Menu Item Click
     $('.navbar-collapse ul li a').click(function() {
@@ -39,6 +43,7 @@
     $('#mainNav').affix({
         offset: {
             top: 100
+			
         }
     })
 
