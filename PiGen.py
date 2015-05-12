@@ -31,7 +31,17 @@ def main():
 @app.route("/my_form_post", methods=['POST'])
 def my_form_post():
     name=request.form['usr'] 
-   
+    hz=request.form['val']
+    if hz=='hz':
+        hz='Hertz'    
+    elif  hz=='khz':
+        hz='Kilo Hertz'    
+    elif hz=='mhz':
+        hz='Mega Hertz'
+        
+    
+    message = Markup("<h3>Tuning Word: "+hz+"</h3>")
+    flash(message) 
     return redirect("http://"+ip+"#pigen")
 
 
