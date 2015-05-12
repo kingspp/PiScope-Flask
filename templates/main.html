@@ -16,8 +16,8 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
 
     <!-- Custom Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href="{{ url_for('static', filename='css/cyrillic-ext.css') }}" rel='stylesheet' type='text/css'> 
+    <link href="{{ url_for('static', filename='css/latin-ext.css') }}" rel='stylesheet' type='text/css'>
     
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css') }}" />
 
@@ -107,7 +107,7 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
 	<aside class="bg-dark">
         <div class="container text-left" >
             <div class="call-to-action">
-                <h2 class="container text-center">Instructions for PiGeneration</h2>				
+                <h2 class="container text-center">Instructions for Pi Generation</h2>				
                 <p><b>Modes</b></p>
 				<p><b>1. Ethernet Mode</b></p>
 				<p>a. In ethernet mode, the raspberry pi is connected
