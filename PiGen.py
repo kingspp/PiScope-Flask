@@ -87,21 +87,26 @@ def my_form_post():
         elif hz == 'mhz':
             hz = 'Mega Hertz'
             mf = 1000000
-        start();    
-        message = Markup("<h3>Value: " + value + " " + hz + "</h3>")    
-        value = tuningWord(float(value), mf)   
-        value = str(value)     
-        message += Markup("<h3>Tuning Word: " + value + "</h3>")
-        flash(message) 
-    elif ( request.form['submit'] == "Generate!" and request.form['usr'] == "" ) :
-        message = Markup("<h3>Please enter a valid Frequency Value</h3>")
+        
+        if (float(value) * mf) < 40000000 :
+            start();    
+            message = Markup("<h3>Value: " + value + " " + hz + "</h3>")  
+            value = tuningWord(float(value), mf)   
+            value = str(value)     
+            message += Markup("<h3>Tuning Word: " + value + "</h3>")
+            flash(message) 
+        else:
+            message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
+            flash(message) 
+    elif (request.form['submit'] == "Generate!" and request.form['usr'] == "") :
+        message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
         flash(message)
     elif request.form['submit'] == "Reset":
         stop();
         message = Markup("<h3>AD9850 successfully reset!</h3>") 
         flash(message)
     ip = request.url_root
-    return redirect(ip+"#pigen")
+    return redirect(ip + "#pigen")
 
 def tuningWord(value, mf):
     freq = int((value * mf) * 4294967296 / 125000000) 
