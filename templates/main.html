@@ -235,7 +235,7 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
 				</div>
 			</form>
 			<div class="flashes">
-			  {% for message in get_flashed_messages() %}
+			  {% for message in get_flashed_messages(category_filter=["form"]) %}
 				{{ message }}
 			  {% endfor %}
 			</div>
@@ -252,8 +252,8 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
 				<input class="btn btn-default btn-xl wow tada" type="submit" name="submit" value="Shutdown"><br><br><br>				
 				</form>
 				<div class="flashes">
-			  {% for message in get_flashed_messages() %}
-				{{ message }}
+			  {% for msg_cont in get_flashed_messages(category_filter=["control"]) %}
+				{{ msg_cont }}
 			  {% endfor %}
 			</div>
 			<p style="padding-top:50px; padding-bottom:-25px">*Caution: You will not be able to access the website unless Raspberry Pi is turned on!!</p>
@@ -275,7 +275,7 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
                 </div>
                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <p><a href="mailto:your-email@your-domain.com">kingspprathyush@gmail.com</a></p>
+                    <p><a href="mailto:kingspprathyush@gmail.com">kingspprathyush@gmail.com</a></p>
                 </div>
             </div>
         </div>
@@ -283,7 +283,7 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
 	
 	
     <div class="col-lg-8 col-lg-offset-2 text-center">
-        <a href="#page-top" style="color:black; font-size:13px;font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; font-weight: 700; padding-bottom:25px">BETA v1.1.1</a>
+        <a href="#page-top" style="color:black; font-size:13px;font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; font-weight: 700; padding-bottom:25px">BETA v1.1.2</a>
 	</div>
             
 

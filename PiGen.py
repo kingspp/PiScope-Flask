@@ -94,17 +94,17 @@ def my_form_post():
             value = tuningWord(float(value), mf)   
             value = str(value)     
             message += Markup("<h3>Tuning Word: " + value + "</h3>")
-            flash(message) 
+            flash(message,'form') 
         else:
             message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
-            flash(message) 
+            flash(message,'form') 
     elif (request.form['submit'] == "Generate!" and request.form['usr'] == "") :
         message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
-        flash(message)
+        flash(message,'form')
     elif request.form['submit'] == "Reset":
         stop();
         message = Markup("<h3>AD9850 successfully reset!</h3>") 
-        flash(message)
+        flash(message,'form')
     ip = request.url_root
     return redirect(ip + "#pigen")
     
@@ -112,11 +112,11 @@ def my_form_post():
 def piscope_controls_post():    
     if request.form['submit'] == "Reboot":
         os.system("sudo shutdown -r now ")
-        message = Markup("<h3>Rebooting . . .</h3>") 
+        msg_cont = Markup("<h3>Rebooting . . .</h3>") 
     elif request.form['submit'] == "Shutdown":
         os.system("sudo shutdown -h now")
-        message = Markup("<h3>Turning off . . .</h3>") 
-    flash(message)
+        msg_cont = Markup("<h3>Turning off . . .</h3>") 
+    flash(msg_cont,'control')
     ip = request.url_root
     return redirect(ip + "#piscope-controls")
 
