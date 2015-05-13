@@ -26,6 +26,8 @@
 	
     <!-- Custom CSS -->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/creative.css') }}" />
+	
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -98,41 +100,43 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
                     <h2 class="section-heading">We've got what you need!</h2>
                     <hr class="light">
                     <p class="text-faded">From "Generation" of electronic signals such as Sinusiodal, triangular to the Detection and analysis of electronic signals and their parameters.</p>
-                    <a href="#" class="btn btn-default btn-xl">Get Started!</a>
+                    <a href="#ins" class="btn btn-default btn-xl page-scroll">Get Started!</a>
                 </div>
             </div>
         </div>
     </section>
 	
-	<aside class="bg-dark">
-        <div class="container text-left" >
-            <div class="call-to-action">
-                <h2 class="container text-center">Instructions for Pi Generation</h2>				
-                <p><b>Modes</b></p>
-				<p><b>1. Ethernet Mode</b></p>
-				<p>a. In ethernet mode, the raspberry pi is connected
-				to a LAN network via a Router<br>
-				b. Pi is assigned a static IP "192.168.0.99" (For Router Only)<br>
-				c. Power on Raspberry Pi.<br>
-				d. Open your browser and type 192.168.0.99, press enter.<br>
-				e. You should see the PiScope website, if not, check the steps or contact the Developer.<br></p>
-				<p><b>2. HotSpot Mode</b></p>
-				<p>a. In HotSpot mode, the raspberry pi is connected
-				to a Mobile device via the device's HotSpot Configuration<br>
-				b. Wifi Hotspot Configuration: (Create using the following credentials)<br>
-					*HotSpot SSID (name): PiScope<br>
-					*HotSpot Key_Mgmt   : WPA (WPA1)<br>
-					*HotSpot password   : 9738134205<br>
-				c. Pi is assigned to a static IP "192.168.43.51" (*Usually)<br>
-				d. Power on Raspberry Pi.<br>
-				e. Open your browser and type IP, press enter.<br>
-				f. You should see the PiScope website, if not continue the guide.<br>
-				g. Download <a href = "https://play.google.com/store/apps/details?id=com.etustudio.android.hotspotmanager&hl=en">WiFi hotspot Manager</a> from Playstore.<br>
-				h. In clients tab , copy the IP Address and repeat from step e <br></p>
-				
-            </div>
-        </div>
-    </aside>
+	
+		<aside class="bg-dark" id="ins">
+			<div class="container text-left" >
+				<div class="call-to-action">
+					<h2 class="container text-center">Instructions for Pi Generation</h2>				
+					<p><b>Modes</b></p>
+					<p><b>1. Ethernet Mode</b></p>
+					<p>a. In ethernet mode, the raspberry pi is connected
+					to a LAN network via a Router<br>
+					b. Pi is assigned a static IP "192.168.0.99" (For Router Only)<br>
+					c. Power on Raspberry Pi.<br>
+					d. Open your browser and type 192.168.0.99, press enter.<br>
+					e. You should see the PiScope website, if not, check the steps or contact the Developer.<br></p>
+					<p><b>2. HotSpot Mode</b></p>
+					<p>a. In HotSpot mode, the raspberry pi is connected
+					to a Mobile device via the device's HotSpot Configuration<br>
+					b. Wifi Hotspot Configuration: (Create using the following credentials)<br>
+						*HotSpot SSID (name): PiScope<br>
+						*HotSpot Key_Mgmt   : WPA (WPA1)<br>
+						*HotSpot password   : 9738134205<br>
+					c. Pi is assigned to a static IP "192.168.43.51" (*Usually)<br>
+					d. Power on Raspberry Pi.<br>
+					e. Open your browser and type IP, press enter.<br>
+					f. You should see the PiScope website, if not continue the guide.<br>
+					g. Download <a href = "https://play.google.com/store/apps/details?id=com.etustudio.android.hotspotmanager&hl=en">WiFi hotspot Manager</a> from Playstore.<br>
+					h. In clients tab , copy the IP Address and repeat from step e <br></p>
+					
+				</div>
+			</div>
+		</aside>
+	
 
     <section id="services">
         <div class="container">
@@ -221,7 +225,7 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
 			<h1>Pi Generation</h1><br>
 			<form action="/my_form_post" method="POST">
 				<div class="form-group">
-					<label for="usr">Value: </label>
+					<label for="usr">Frequency: </label>
 					<input type="number" class="form-control" name="usr"><br>				
 				<input type="radio" name="val" value="hz" checked>Hz (Hertz)<br>
 				<input type="radio" name="val" value="khz">KHz (Kilo Hertz)<br>
@@ -238,6 +242,24 @@ apparatus required for analyzing the signals. Ultimately it should be a single p
 		</div>
 	</div>
 </section>
+
+    <aside class="bg-dark" id="piscope-controls">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2 style="padding-top:50px">PiScope Controls</h2>
+				<form action="/piscope_controls" method="POST">
+				<input class="btn btn-default btn-xl wow tada" type="submit" name="submit" value="Reboot"> &nbsp &nbsp &nbsp
+				<input class="btn btn-default btn-xl wow tada" type="submit" name="submit" value="Shutdown"><br><br><br>				
+				</form>
+				<div class="flashes">
+			  {% for message in get_flashed_messages() %}
+				{{ message }}
+			  {% endfor %}
+			</div>
+			<p style="padding-top:50px; padding-bottom:-25px">*Caution: You will not be able to access the website unless Raspberry Pi is turned on!!</p>
+            </div>
+        </div>
+    </aside>
 
     <section id="contact">
         <div class="container">

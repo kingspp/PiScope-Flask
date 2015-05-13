@@ -4,8 +4,8 @@ from flask import Flask, flash, render_template, request, redirect
 from flask import Markup
 import math
 from lib2to3.fixer_util import String
-import struct
 import RPi.GPIO as GPIO
+import os
 
 
 
@@ -72,8 +72,8 @@ def main():
    user = auth.username()
    # flash('Welcome %s', % user)   
    return render_template('main.html')
+   
 @app.route("/my_form_post", methods=['POST'])
-
 def my_form_post():
     if (request.form['submit'] == "Generate!" and request.form['usr'] != ""):
         value = request.form['usr'] 
@@ -107,6 +107,18 @@ def my_form_post():
         flash(message)
     ip = request.url_root
     return redirect(ip + "#pigen")
+    
+@app.route("/piscope_controls", methods=['POST'])
+def piscope_controls_post():    
+    if request.form['submit'] == "Reboot":
+        os.system("sudo shutdown -r now ")
+        message = Markup("<h3>Rebooting . . .</h3>") 
+    elif request.form['submit'] == "Shutdown":
+        os.system("sudo shutdown -h now")
+        message = Markup("<h3>Turning off . . .</h3>") 
+    flash(message)
+    ip = request.url_root
+    return redirect(ip + "#piscope-controls")
 
 def tuningWord(value, mf):
     freq = int((value * mf) * 4294967296 / 125000000) 
