@@ -20,6 +20,9 @@ FQ_UD = 16
 DATA = 18
 RESET = 22
 Pon = 7
+value = 0
+hz = 0
+temp=0
 
 # setup IO bits
 GPIO.setup(W_CLK, GPIO.OUT)
@@ -74,9 +77,13 @@ def main():
    return render_template('main.html')
    
 @app.route("/my_form_post", methods=['POST'])
-def my_form_post():
+def my_form_post():   
+    global value
+    global hz
+    global temp
     if (request.form['submit'] == "Generate!" and request.form['usr'] != ""):
         value = request.form['usr'] 
+        temp=value
         hz = request.form['val']
         if hz == 'hz':
             hz = 'Hertz'
@@ -94,17 +101,23 @@ def my_form_post():
             value = tuningWord(float(value), mf)   
             value = str(value)     
             message += Markup("<h3>Tuning Word: " + value + "</h3>")
-            flash(message,'form') 
+            flash(message, 'form') 
         else:
             message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
-            flash(message,'form') 
+            flash(message, 'form') 
     elif (request.form['submit'] == "Generate!" and request.form['usr'] == "") :
         message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
-        flash(message,'form')
+        flash(message, 'form')
+    elif request.form['submit'] == "Read"  :
+        if  value == 0 :
+            message = Markup("<h3>Please enter a valid Frequency Value (1 - 40MHz)</h3>")
+        else:
+            message = Markup("<h3>Frequency was at " + temp + " " + hz + "</h3>")
+        flash(message, 'form')
     elif request.form['submit'] == "Reset":
         stop();
         message = Markup("<h3>AD9850 successfully reset!</h3>") 
-        flash(message,'form')
+        flash(message, 'form')
     ip = request.url_root
     return redirect(ip + "#pigen")
     
@@ -116,7 +129,7 @@ def piscope_controls_post():
     elif request.form['submit'] == "Shutdown":
         os.system("sudo shutdown -h now")
         msg_cont = Markup("<h3>Turning off . . .</h3>") 
-    flash(msg_cont,'control')
+    flash(msg_cont, 'control')
     ip = request.url_root
     return redirect(ip + "#piscope-controls")
 
