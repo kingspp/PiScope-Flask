@@ -1,14 +1,21 @@
 from flask import Flask
-from flask.ext.httpauth import HTTPBasicAuth
+from flask_httpauth import HTTPBasicAuth
 from flask import Flask, flash, render_template, request, redirect
 from flask import Markup
 import math
 from lib2to3.fixer_util import String
-import RPi.GPIO as GPIO
 import os
 
+app = Flask(__name__)
+auth = HTTPBasicAuth()
+app.secret_key = 'some_secret'
 
 
+if app.env == 'prod':    
+    import RPi.GPIO as GPIO
+else:
+    import FakeRPi.GPIO as GPIO
+    
 
 # setup GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -54,10 +61,6 @@ def tfr_byte(data):
         data = data >> 1
     return
 
-app = Flask(__name__)
-auth = HTTPBasicAuth()
-app.secret_key = 'some_secret'
-
 users = {
     "admin": "1234",
     "susan": "bye"
@@ -70,7 +73,7 @@ def get_pw(username):
 
 
 @app.route("/")
-@auth.login_required
+# @auth.login_required
 def main():
    user = auth.username()
    # flash('Welcome %s', % user)   
