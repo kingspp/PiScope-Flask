@@ -1,3 +1,4 @@
 flask
 flask-httpauth
-rpi.gpio
+git+https://github.com/sn4k3/FakeRPi
+#rpi.gpio
