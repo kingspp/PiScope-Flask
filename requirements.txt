@@ -1,3 +1,4 @@
+gunicorn
 flask
 flask-httpauth
 git+https://github.com/sn4k3/FakeRPi
